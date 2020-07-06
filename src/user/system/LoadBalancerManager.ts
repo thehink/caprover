@@ -109,7 +109,7 @@ class LoadBalancerManager {
         // This will resolve to something like: /captain/nginx/conf.d/captain
         const configFilePathBase = `${
             CaptainConstants.perAppNginxConfigPathBase
-        }/${dataStore.getNameSpace()}`
+            }/${dataStore.getNameSpace()}`
 
         const FUTURE = configFilePathBase + '.fut'
         const BACKUP = configFilePathBase + '.bak'
@@ -138,7 +138,7 @@ class LoadBalancerManager {
                         s.staticWebRoot = `${
                             CaptainConstants.nginxStaticRootDir +
                             CaptainConstants.nginxDomainSpecificHtmlDir
-                        }/${s.publicDomain}`
+                            }/${s.publicDomain}`
 
                         s.customErrorPagesDirectory =
                             CaptainConstants.nginxStaticRootDir +
@@ -386,10 +386,10 @@ class LoadBalancerManager {
 
         const captainDomain = `${
             CaptainConstants.captainSubDomain
-        }.${dataStore.getRootDomain()}`
+            }.${dataStore.getRootDomain()}`
         const registryDomain = `${
             CaptainConstants.registrySubDomain
-        }.${dataStore.getRootDomain()}`
+            }.${dataStore.getRootDomain()}`
 
         let hasRootSsl = false
 
@@ -440,7 +440,7 @@ class LoadBalancerManager {
                         staticWebRoot: `${
                             CaptainConstants.nginxStaticRootDir +
                             CaptainConstants.nginxDomainSpecificHtmlDir
-                        }/${captainDomain}`,
+                            }/${captainDomain}`,
                     },
                     registry: {
                         crtPath: self.getSslCertPath(registryDomain),
@@ -450,7 +450,7 @@ class LoadBalancerManager {
                         staticWebRoot: `${
                             CaptainConstants.nginxStaticRootDir +
                             CaptainConstants.nginxDomainSpecificHtmlDir
-                        }/${registryDomain}`,
+                            }/${registryDomain}`,
                     },
                 })
             })
@@ -486,9 +486,9 @@ class LoadBalancerManager {
                     base: {
                         dhparamsFilePath:
                             fs.existsSync(DH_PARAMS_FILE_PATH_ON_HOST) &&
-                            fs
-                                .readFileSync(DH_PARAMS_FILE_PATH_ON_HOST)
-                                .toString().length > 10 // making sure it's not an buggy file
+                                fs
+                                    .readFileSync(DH_PARAMS_FILE_PATH_ON_HOST)
+                                    .toString().length > 10 // making sure it's not an buggy file
                                 ? DH_PARAMS_FILE_PATH_ON_NGINX
                                 : '',
                     },
@@ -573,6 +573,18 @@ class LoadBalancerManager {
                             containerPort: 443,
                             hostPort: 443,
                         },
+                        {
+                            protocol: 'tcp',
+                            publishMode: 'host',
+                            containerPort: 8080,
+                            hostPort: 8080,
+                        },
+                        {
+                            protocol: 'tcp',
+                            publishMode: 'host',
+                            containerPort: 8443,
+                            hostPort: 8443,
+                        },
                     ],
                     nodeId,
                     undefined,
@@ -587,7 +599,7 @@ class LoadBalancerManager {
                     const waitTimeInMillis = 5000
                     Logger.d(
                         `Waiting for ${
-                            waitTimeInMillis / 1000
+                        waitTimeInMillis / 1000
                         } seconds for nginx to start up`
                     )
                     return new Promise<boolean>(function (resolve, reject) {
@@ -601,8 +613,8 @@ class LoadBalancerManager {
         return fs
             .outputFile(
                 CaptainConstants.captainStaticFilesDir +
-                    CaptainConstants.nginxDefaultHtmlDir +
-                    CaptainConstants.captainConfirmationPath,
+                CaptainConstants.nginxDefaultHtmlDir +
+                CaptainConstants.captainConfirmationPath,
                 self.getCaptainPublicRandomKey()
             )
             .then(function () {
@@ -616,8 +628,8 @@ class LoadBalancerManager {
             .then(function (staticPageContent) {
                 return fs.outputFile(
                     CaptainConstants.captainStaticFilesDir +
-                        CaptainConstants.nginxDefaultHtmlDir +
-                        '/index.html',
+                    CaptainConstants.nginxDefaultHtmlDir +
+                    '/index.html',
                     staticPageContent
                 )
             })
@@ -632,8 +644,8 @@ class LoadBalancerManager {
             .then(function (errorGenericPageContent) {
                 return fs.outputFile(
                     CaptainConstants.captainStaticFilesDir +
-                        CaptainConstants.nginxDefaultHtmlDir +
-                        '/error_generic_catch_all.html',
+                    CaptainConstants.nginxDefaultHtmlDir +
+                    '/error_generic_catch_all.html',
                     errorGenericPageContent
                 )
             })
@@ -650,8 +662,8 @@ class LoadBalancerManager {
             .then(function (error502PageContent) {
                 return fs.outputFile(
                     CaptainConstants.captainStaticFilesDir +
-                        CaptainConstants.nginxDefaultHtmlDir +
-                        '/captain_502_custom_error_page.html',
+                    CaptainConstants.nginxDefaultHtmlDir +
+                    '/captain_502_custom_error_page.html',
                     error502PageContent
                 )
             })
@@ -765,7 +777,7 @@ class LoadBalancerManager {
                 const waitTimeInMillis = 5000
                 Logger.d(
                     `Waiting for ${
-                        waitTimeInMillis / 1000
+                    waitTimeInMillis / 1000
                     } seconds for nginx reload to take into effect`
                 )
                 return new Promise<boolean>(function (resolve, reject) {

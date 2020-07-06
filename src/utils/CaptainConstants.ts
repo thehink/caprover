@@ -162,7 +162,7 @@ let data = {
     // *********************     ETC       ************************
 
     disableFirewallCommand:
-        'ufw allow 80,443,3000,996,7946,4789,2377/tcp; ufw allow 7946,4789,2377/udp; ',
+        'ufw allow 80,443,8080,8443,3000,996,7946,4789,2377/tcp; ufw allow 7946,4789,2377/udp; ',
 }
 
 function overrideFromFile(fileName: string) {
